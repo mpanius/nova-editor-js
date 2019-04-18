@@ -12,6 +12,7 @@
     "devDependencies": {
         "@editorjs/code": "^2.4.1",
         "@editorjs/editorjs": "^2.12.4",
+        "@editorjs/embed": "^2.2.0",
         "@editorjs/header": "^2.2.3",
         "@editorjs/image": "^2.2.0",
         "@editorjs/link": "^2.1.2",

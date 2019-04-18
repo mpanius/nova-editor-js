@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div id="editorjs"></div>
+            <div :id="field.name" class="w-full form-text form-input form-input-bordered"></div>
         </template>
     </default-field>
 </template>
@@ -16,6 +16,8 @@
     const Header = require('@editorjs/header');
     const List = require('@editorjs/list');
     const LinkTool = require('@editorjs/link');
+    const Embed = require('@editorjs/embed');
+
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -35,7 +37,11 @@
                     /**
                      * Wrapper of Editor
                      */
-                    holderId: 'editorjs',
+                    holderId: this.field.name,
+                    /**
+                     * autofocus
+                     **/
+                     autofocus: true,
                     /**
                      * Tools list
                      */
@@ -56,6 +62,10 @@
                         code: {
                             class: CodeTool,
                             shortcut: 'CMD+SHIFT+C'
+                        },
+                        embed: {
+                            class: Embed,
+                            inlineToolbar: true
                         },
                         linkTool: LinkTool,
                         image: {
