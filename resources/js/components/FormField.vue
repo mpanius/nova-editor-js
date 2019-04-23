@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div id="editorjs"></div>
+            <div id="editorjs" class="w-full form-input form-input-bordered"></div>
         </template>
     </default-field>
 </template>
@@ -17,6 +17,8 @@
     const List = require('@editorjs/list');
     const LinkTool = require('@editorjs/link');
     const InlineCode = require('@editorjs/inline-code');
+    const Table = require('@editorjs/table');
+    const Embed = require('@editorjs/embed');
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -47,25 +49,40 @@
                             config: {
                                 placeholder: 'Header'
                             },
+                            toolbox: {
+                                title: 'Заголовок'
+                            },
                             shortcut: 'CMD+SHIFT+H'
                         },
                         list: {
                             class: List,
                             inlineToolbar: true,
-                            shortcut: 'CMD+SHIFT+L'
+                            shortcut: 'CMD+SHIFT+L',
+                            toolbox: {
+                                title: 'Список'
+                            },
                         },
                         code: {
                             class: CodeTool,
-                            shortcut: 'CMD+SHIFT+C'
+                            shortcut: 'CMD+SHIFT+C',
+                            toolbox: {
+                                title: 'Код'
+                            },
                         },
                         linkTool: {
                             class: LinkTool,
                             config: {
                                 endpoint: self.field.fetchUrlEndpoint,
-                            }
+                            },
+                            toolbox: {
+                                title: 'Виджет ссылки'
+                            },
                         },
                         image: {
                             class: ImageTool,
+                            toolbox: {
+                                title: 'Изображение'
+                            },
                             config: {
                                 endpoints: {
                                     byFile: self.field.uploadImageByFileEndpoint,
@@ -75,6 +92,28 @@
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                                 }
                             }
+                        },
+                        table: {
+                            class: Table,
+                            inlineToolbar: true,
+                            config: {
+                                rows: 2,
+                                cols: 2,
+                            },
+                            toolbox: {
+                                title: 'Таблица'
+                            },
+                        },
+                        embed: {
+                            class: Embed,
+                            config: {
+                                services: {
+                                    youtube: true,
+                                }
+                            },
+                            toolbox: {
+                                title: 'Youtube'
+                            },
                         },
                         inlineCode: {
                             class: InlineCode,
