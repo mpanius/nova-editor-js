@@ -16,6 +16,7 @@
     const Header = require('@editorjs/header');
     const List = require('@editorjs/list');
     const LinkTool = require('@editorjs/link');
+    const InlineCode = require('@editorjs/inline-code');
     const Embed = require('@editorjs/embed');
 
 
@@ -63,6 +64,12 @@
                             class: CodeTool,
                             shortcut: 'CMD+SHIFT+C'
                         },
+                        linkTool: {
+                            class: LinkTool,
+                            config: {
+                                endpoint: self.field.fetchUrlEndpoint,
+                            }
+                        },
                         embed: {
                             class: Embed,
                             inlineToolbar: true
@@ -72,13 +79,17 @@
                             class: ImageTool,
                             config: {
                                 endpoints: {
-                                    byFile: self.field.uploadImageByFileEndpoint, // Your backend file uploader endpoint
-                                    byUrl: self.field.uploadImageByUrlEndpoint, // Your endpoint that provides uploading by Url
+                                    byFile: self.field.uploadImageByFileEndpoint,
+                                    byUrl: self.field.uploadImageByUrlEndpoint,
                                 },
                                 additionalRequestHeaders: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                                 }
                             }
+                        },
+                        inlineCode: {
+                            class: InlineCode,
+                            shortcut: 'CMD+SHIFT+M',
                         },
                     },
                     /**

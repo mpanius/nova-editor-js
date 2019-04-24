@@ -22,6 +22,7 @@ class NovaEditorJs extends Field
         $this->withMeta([
             'uploadImageByFileEndpoint' => route('editor-js-upload-image-by-file'),
             'uploadImageByUrlEndpoint' => route('editor-js-upload-image-by-url'),
+            'fetchUrlEndpoint' => route('editor-js-fetch-url'),
         ]);
     }
 
@@ -70,7 +71,7 @@ class NovaEditorJs extends Field
             // Get sanitized blocks (according to the rules from configuration)
             $blocks = $editor->getBlocks();
 
-            $htmlOutput = '';
+            $htmlOutput = '<div class="editor-js-content">';
 
             foreach ($blocks as $block) {
                 switch ($block['type']) {
@@ -90,10 +91,14 @@ class NovaEditorJs extends Field
                     case 'code':
                         $htmlOutput .= view('nova-editor-js::code', $block['data'])->render();
                         break;
-
+                    case 'linkTool':
+                        $htmlOutput .= view('nova-editor-js::link', $block['data'])->render();
+                        break;
                 }
             }
 
+            $htmlOutput .= '</div>';
+            
             return html_entity_decode($htmlOutput);
         } catch (EditorJSException $e) {
             // process exception

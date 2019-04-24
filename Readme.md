@@ -1,5 +1,8 @@
 # Laravel Nova Editor JS Field
 
+[![Latest Version on Github](https://img.shields.io/github/release/advoor/nova-editor-js.svg?style=flat-square)](https://packagist.org/packages/advoor/nova-editor-js)
+[![Total Downloads](https://img.shields.io/packagist/dt/advoor/nova-editor-js.svg?style=flat-square)](https://packagist.org/packages/advoor/nova-editor-js)
+
 A Laravel Nova implementation of [Editor.js](https://github.com/codex-team/editor.js) by [@advoor](https://github.com/advoor).
 Forked by [@mpanius](https://github.com/mpanius)
 
@@ -32,10 +35,23 @@ NovaEditorJs::make('FieldName')
 
 And boom!
 
+You can use the built in function to generate the response for the frontend:
 
+```
+NovaEditorJs::generateHtmlOutput($user->about);
+```
+
+Each 'block' has it's own view which can be overwritten in `resources/views/vendor/nova-editor-js/`
+
+## Tools included
+* https://github.com/editor-js/header
+* https://github.com/editor-js/image
+* https://github.com/editor-js/code
+* https://github.com/editor-js/link
+* https://github.com/editor-js/list
+* https://github.com/editor-js/inline-code
 
 ## Todo
 
-* Index and details views
-* Integrate the image upload plugin
+* Implement more tools
 * Add configuration options to enable / disable some tools

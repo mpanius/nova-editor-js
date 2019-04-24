@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'image' => [
+        'path' => 'public/images',
+        'disk' => 'local'
+    ],
+
     'tools' => [
         'header' => [
             'text' => [
@@ -14,7 +19,7 @@ return [
         'paragraph' => [
             'text' => [
                 'type' => 'string',
-                'allowedTags' => 'i,b,u,a[href]'
+                'allowedTags' => 'i,b,u,a[href],span[class],code[class]'
             ]
         ],
         'list' => [
@@ -61,6 +66,30 @@ return [
         'code' => [
             'code' => [
                 'type' => 'string'
+            ]
+        ],
+        'linkTool' => [
+            'link' => [
+                'type' => 'string'
+            ],
+            'meta' => [
+                'type' => 'array',
+                'data' => [
+                    'title' => [
+                        'type' => 'string',
+                    ],
+                    'description' => [
+                        'type' => 'string',
+                    ],
+                    'image' => [
+                        'type' => 'array',
+                        'data' => [
+                            'url' => [
+                                'type' => 'string',
+                            ],
+                        ]
+                    ]
+                ]
             ]
         ]
     ]
