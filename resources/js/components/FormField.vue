@@ -34,6 +34,7 @@
                 let self = this;
                 let currentContent = JSON.parse(self.field.value);
 
+
                 var editor = new EditorJS({
                     /**
                      * Wrapper of Editor
@@ -110,6 +111,7 @@
                         });
                     }
                 });
+                window.editor = editor;
             },
 
             /**

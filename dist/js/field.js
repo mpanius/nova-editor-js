@@ -511,13 +511,16 @@ var Embed = __webpack_require__(20);
                  * Initial Editor data
                  */
                 data: currentContent,
-                onReady: function onReady() {},
+                onReady: function onReady() {
+                    console.log;
+                },
                 onChange: function onChange() {
                     editor.save().then(function (savedData) {
                         self.handleChange(savedData);
                     });
                 }
             });
+            window.editor = editor;
         },
 
 
