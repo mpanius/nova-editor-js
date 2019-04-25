@@ -1,11 +1,16 @@
 // Nova Tool CSS
+.ce-block__content {
+  width: 790px;
+}
+.w-850 {
+  width: 850px;
+}
 .editor-js-content {
   .ce-block__content {max-width: 780px;}
 
   .editor-js-block {
     padding: .7em 0;
   }
-
   h2 {
     padding: 1em 0;
     margin: 0;

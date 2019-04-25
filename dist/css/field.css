@@ -1,5 +1,9 @@
-.editor-js-content .ce-block__content {
-  max-width: 780px;
+.ce-block__content {
+  width: 790px;
+}
+
+.w-850 {
+  width: 850px;
 }
 
 .editor-js-content .editor-js-block {
