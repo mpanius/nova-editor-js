@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div id="editorjs" class="w-full form-input form-input-bordered"></div>
+            <div :id="field.name" class="w-full form-text form-input form-input-bordered"></div>
         </template>
     </default-field>
 </template>
@@ -38,7 +38,11 @@
                     /**
                      * Wrapper of Editor
                      */
-                    holderId: 'editorjs',
+                    holderId: this.field.name,
+                    /**
+                     * autofocus
+                     **/
+                     autofocus: true,
                     /**
                      * Tools list
                      */
@@ -78,6 +82,11 @@
                                 title: 'Виджет ссылки'
                             },
                         },
+                        embed: {
+                            class: Embed,
+                            inlineToolbar: true
+                        },
+                        linkTool: LinkTool,
                         image: {
                             class: ImageTool,
                             toolbox: {
