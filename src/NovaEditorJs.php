@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpanius\NovaEditorJs;
+namespace Advoor\NovaEditorJs;
 
 use EditorJS\EditorJS;
 use EditorJS\EditorJSException;

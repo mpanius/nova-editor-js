@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpanius\NovaEditorJs;
+namespace Advoor\NovaEditorJs;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;

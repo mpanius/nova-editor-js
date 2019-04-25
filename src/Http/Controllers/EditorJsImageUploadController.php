@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpanius\NovaEditorJs\Http\Controllers;
+namespace Advoor\NovaEditorJs\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
