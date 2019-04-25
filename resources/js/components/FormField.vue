@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div :id="field.name" class="w-full form-text form-input form-input-bordered"></div>
+            <div :id="field.name" class="form-text form-input form-input-bordered w-850"></div>
         </template>
     </default-field>
 </template>
