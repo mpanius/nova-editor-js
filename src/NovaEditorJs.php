@@ -15,6 +15,11 @@ class NovaEditorJs extends Field
      */
     public $component = 'nova-editor-js';
 
+    public function mediamodel($modelId=0)
+    {
+        return $this->withMeta(['modelid'=>$modelId]);
+    }
+
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
