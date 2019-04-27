@@ -1,16 +1,22 @@
 // Nova Tool CSS
-.ce-block__content {
-  width: 790px;
+.editor-js {
+  width: 100%;
+  background-color: #fff;
+  border-width: 1px;
+  border-color: #bacad6;;
+  padding-left: .75rem;
+  color: #7c858e;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
 }
-.w-850 {
-  width: 850px;
-}
+
 .editor-js-content {
-  .ce-block__content {max-width: 780px;}
 
   .editor-js-block {
     padding: .7em 0;
   }
+
   h2 {
     padding: 1em 0;
     margin: 0;
