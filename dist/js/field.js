@@ -409,8 +409,6 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_nova__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -443,7 +441,6 @@ var Embed = __webpack_require__(21);
          * Set the initial, internal value for the field.
          */
         setInitialValue: function setInitialValue() {
-            var _tools;
 
             var self = this;
             var currentContent = JSON.parse(self.field.value);
@@ -460,7 +457,7 @@ var Embed = __webpack_require__(21);
                 /**
                  * Tools list
                  */
-                tools: (_tools = {
+                tools: {
                     header: {
                         class: Header,
                         inlineToolbar: ['link'],
@@ -493,51 +490,48 @@ var Embed = __webpack_require__(21);
                             endpoint: self.field.fetchUrlEndpoint
                         },
                         toolbox: {
-                            title: 'Виджет ссылки'
+                            title: 'Виджет'
+                        }
+                    },
+                    image: {
+                        class: ImageTool,
+                        toolbox: {
+                            title: 'Изображение'
+                        },
+                        config: {
+                            endpoints: {
+                                byFile: self.field.uploadImageByFileEndpoint,
+                                byUrl: self.field.uploadImageByUrlEndpoint
+                            },
+                            additionalRequestHeaders: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            }
+                        }
+                    },
+                    table: {
+                        class: Table,
+                        inlineToolbar: true,
+                        config: {
+                            rows: 2,
+                            cols: 2
+                        },
+                        toolbox: {
+                            title: 'Таблица'
                         }
                     },
                     embed: {
                         class: Embed,
-                        inlineToolbar: true
-                    }
-                }, _defineProperty(_tools, 'linkTool', LinkTool), _defineProperty(_tools, 'image', {
-                    class: ImageTool,
-                    toolbox: {
-                        title: 'Изображение'
-                    },
-                    config: {
-                        endpoints: {
-                            byFile: self.field.uploadImageByFileEndpoint,
-                            byUrl: self.field.uploadImageByUrlEndpoint
+                        config: {
+                            services: {
+                                youtube: true,
+                                vimeo: true
+                            }
                         },
-                        additionalRequestHeaders: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        toolbox: {
+                            title: 'Youtube/Vimeo'
                         }
                     }
-                }), _defineProperty(_tools, 'table', {
-                    class: Table,
-                    inlineToolbar: true,
-                    config: {
-                        rows: 2,
-                        cols: 2
-                    },
-                    toolbox: {
-                        title: 'Таблица'
-                    }
-                }), _defineProperty(_tools, 'embed', {
-                    class: Embed,
-                    config: {
-                        services: {
-                            youtube: true
-                        }
-                    },
-                    toolbox: {
-                        title: 'Youtube'
-                    }
-                }), _defineProperty(_tools, 'inlineCode', {
-                    class: InlineCode,
-                    shortcut: 'CMD+SHIFT+M'
-                }), _tools),
+                },
                 /**
                  * This Tool will be used as default
                  */

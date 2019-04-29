@@ -80,14 +80,9 @@
                                 endpoint: self.field.fetchUrlEndpoint,
                             },
                             toolbox: {
-                                title: 'Виджет ссылки'
+                                title: 'Виджет'
                             },
                         },
-                        embed: {
-                            class: Embed,
-                            inlineToolbar: true
-                        },
-                        linkTool: LinkTool,
                         image: {
                             class: ImageTool,
                             toolbox: {
@@ -119,15 +114,12 @@
                             config: {
                                 services: {
                                     youtube: true,
+                                    vimeo: true,
                                 }
                             },
                             toolbox: {
-                                title: 'Youtube'
+                                title: 'Youtube/Vimeo'
                             },
-                        },
-                        inlineCode: {
-                            class: InlineCode,
-                            shortcut: 'CMD+SHIFT+M',
                         },
                     },
                     /**
