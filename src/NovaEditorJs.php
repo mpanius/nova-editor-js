@@ -15,6 +15,11 @@ class NovaEditorJs extends Field
      */
     public $component = 'nova-editor-js';
 
+    public function mediamodel($modelId=0)
+    {
+        return $this->withMeta(['modelid'=>$modelId]);
+    }
+
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
@@ -93,6 +98,12 @@ class NovaEditorJs extends Field
                         break;
                     case 'linkTool':
                         $htmlOutput .= view('nova-editor-js::link', $block['data'])->render();
+                        break;
+                    case 'embed':
+                        $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
+                        break;
+                    case 'table':
+                        $htmlOutput .= view('nova-editor-js::table', $block['data'])->render();
                         break;
                 }
             }
