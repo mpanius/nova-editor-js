@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div :id="field.name" class="form-text form-input form-input-bordered w-850"></div>
+            <div :id="'editor-js-' + this.field.attribute" class="editor-js"></div>
         </template>
     </default-field>
 </template>
@@ -11,14 +11,152 @@
 
     const EditorJS = require('@editorjs/editorjs');
     const Paragraph = require('@editorjs/paragraph');
-    const ImageTool = require('@editorjs/image');
-    const CodeTool = require('@editorjs/code');
-    const Header = require('@editorjs/header');
-    const List = require('@editorjs/list');
-    const LinkTool = require('@editorjs/link');
-    const InlineCode = require('@editorjs/inline-code');
-    const Table = require('@editorjs/table');
-    const Embed = require('@editorjs/embed');
+
+    function setHeadingToolSettings(self, tools) {
+        if (self.field.toolSettings.header.activated === true) {
+            const Header = require('@editorjs/header');
+
+            tools.header = {
+                class: Header,
+                config: {
+                    placeholder: self.field.toolSettings.header.placeholder
+                },
+                shortcut: self.field.toolSettings.header.shortcut
+            }
+        }
+    }
+
+    function setListToolSettings(self, tools) {
+        if (self.field.toolSettings.list.activated === true) {
+            const List = require('@editorjs/list');
+
+            tools.list = {
+                class: List,
+                inlineToolbar: self.field.toolSettings.list.inlineToolbar,
+                shortcut: self.field.toolSettings.list.shortcut
+            }
+        }
+    }
+
+    function setCodeToolSettings(self, tools) {
+        if (self.field.toolSettings.code.activated === true) {
+            const CodeTool = require('@editorjs/code');
+
+            tools.code = {
+                class: CodeTool,
+                shortcut: self.field.toolSettings.code.shortcut,
+                config: {
+                    placeholder: self.field.toolSettings.code.placeholder,
+                },
+            }
+        }
+    }
+
+    function setLinkToolSettings(self, tools) {
+        if (self.field.toolSettings.link.activated === true) {
+            const LinkTool = require('@editorjs/link');
+
+            tools.linkTool = {
+                class: LinkTool,
+                config: {
+                    endpoint: self.field.fetchUrlEndpoint,
+                }
+            }
+        }
+    }
+
+    function setImageToolSettings(self, tools) {
+        if (self.field.toolSettings.image.activated === true) {
+            const ImageTool = require('@editorjs/image');
+
+            tools.image = {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                        byFile: self.field.uploadImageByFileEndpoint,
+                        byUrl: self.field.uploadImageByUrlEndpoint,
+                    },
+                    additionalRequestHeaders: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                }
+            }
+        }
+    }
+
+    function setInlineCodeToolSettings(self, tools) {
+        if (self.field.toolSettings.inlineCode.activated === true) {
+            const InlineCode = require('@editorjs/inline-code');
+
+            tools.inlineCode = {
+                class: InlineCode,
+                shortcut: self.field.toolSettings.inlineCode.shortcut,
+            }
+        }
+    }
+
+    function setChecklistToolSettings(self, tools) {
+        if (self.field.toolSettings.checklist.activated === true) {
+            const Checklist = require('@editorjs/checklist');
+
+            tools.checklist = {
+                class: Checklist,
+                inlineToolbar: self.field.toolSettings.checklist.inlineToolbar,
+                shortcut: self.field.toolSettings.checklist.shortcut
+            }
+        }
+    }
+
+    function setMarkerToolSettings(self, tools) {
+        if (self.field.toolSettings.marker.activated === true) {
+            const Marker = require('@editorjs/marker');
+
+            tools.marker = {
+                class: Marker,
+                shortcut: self.field.toolSettings.marker.shortcut
+            }
+        }
+    }
+
+    function setDelimiterToolSettings(self, tools) {
+        if (self.field.toolSettings.delimiter.activated === true) {
+            const Delimiter = require('@editorjs/delimiter');
+
+            tools.delimiter = {
+                class: Delimiter,
+            }
+        }
+    }
+
+    function setTableToolSettings(self, tools) {
+        if (self.field.toolSettings.table.activated === true) {
+            const Table = require('@editorjs/table');
+
+            tools.table = {
+                class: Table,
+                inlineToolbar: self.field.toolSettings.table.inlineToolbar,
+            }
+        }
+    }
+
+    function setEmbedToolSettings(self, tools) {
+        if (self.field.toolSettings.embed.activated === true) {
+            const Embed = require('@editorjs/embed');
+
+            tools.embed = {
+                class: Embed,
+                inlineToolbar: self.field.toolSettings.embed.inlineToolbar,
+                config: {
+                    services: {
+                        codepen: self.field.toolSettings.embed.services.codepen,
+                        imgur: self.field.toolSettings.embed.services.imgur,
+                        vimeo: self.field.toolSettings.embed.services.vimeo,
+                        youtube: self.field.toolSettings.embed.services.youtube,
+                    }
+                }
+            }
+        }
+    }
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -31,105 +169,35 @@
              */
             setInitialValue() {
 
-                let self = this;
-                let currentContent = JSON.parse(self.field.value);
+                this.value = this.field.value;
 
+                let self = this;
+                let currentContent = (self.field.value ? JSON.parse(self.field.value) : self.field.value);
+                let tools = {};
+
+                setHeadingToolSettings(self, tools);
+                setListToolSettings(self, tools);
+                setCodeToolSettings(self, tools);
+                setLinkToolSettings(self, tools);
+                setImageToolSettings(self, tools);
+                setInlineCodeToolSettings(self, tools);
+                setChecklistToolSettings(self, tools);
+                setMarkerToolSettings(self, tools);
+                setDelimiterToolSettings(self, tools);
+                setTableToolSettings(self, tools);
+                setEmbedToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**
                      * Wrapper of Editor
                      */
-                    holderId: this.field.name,
-                    /**
-                     * autofocus
-                     **/
-                     autofocus: true,
+                    holderId: 'editor-js-' + self.field.attribute,
+
                     /**
                      * Tools list
                      */
-                    tools: {
-                        header: {
-                            class: Header,
-                            inlineToolbar: ['link'],
-                            config: {
-                                placeholder: 'Header'
-                            },
-                            toolbox: {
-                                title: 'Заголовок'
-                            },
-                            shortcut: 'CMD+SHIFT+H'
-                        },
-                        list: {
-                            class: List,
-                            inlineToolbar: true,
-                            shortcut: 'CMD+SHIFT+L',
-                            toolbox: {
-                                title: 'Список'
-                            },
-                        },
-                        code: {
-                            class: CodeTool,
-                            shortcut: 'CMD+SHIFT+C',
-                            toolbox: {
-                                title: 'Код'
-                            },
-                        },
-                        linkTool: {
-                            class: LinkTool,
-                            config: {
-                                endpoint: self.field.fetchUrlEndpoint,
-                            },
-                            toolbox: {
-                                title: 'Виджет ссылки'
-                            },
-                        },
-                        embed: {
-                            class: Embed,
-                            inlineToolbar: true
-                        },
-                        linkTool: LinkTool,
-                        image: {
-                            class: ImageTool,
-                            toolbox: {
-                                title: 'Изображение'
-                            },
-                            config: {
-                                endpoints: {
-                                    byFile: self.field.uploadImageByFileEndpoint,
-                                    byUrl: self.field.uploadImageByUrlEndpoint,
-                                },
-                                additionalRequestHeaders: {
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                }
-                            }
-                        },
-                        table: {
-                            class: Table,
-                            inlineToolbar: true,
-                            config: {
-                                rows: 2,
-                                cols: 2,
-                            },
-                            toolbox: {
-                                title: 'Таблица'
-                            },
-                        },
-                        embed: {
-                            class: Embed,
-                            config: {
-                                services: {
-                                    youtube: true,
-                                }
-                            },
-                            toolbox: {
-                                title: 'Youtube'
-                            },
-                        },
-                        inlineCode: {
-                            class: InlineCode,
-                            shortcut: 'CMD+SHIFT+M',
-                        },
-                    },
+                    tools,
+
                     /**
                      * This Tool will be used as default
                      */
@@ -148,7 +216,6 @@
                         });
                     }
                 });
-                window.editor = editor;
             },
 
             /**

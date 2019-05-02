@@ -15,16 +15,12 @@ class NovaEditorJs extends Field
      */
     public $component = 'nova-editor-js';
 
-    public function mediamodel($modelId=0)
-    {
-        return $this->withMeta(['modelid'=>$modelId]);
-    }
-
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
         $this->withMeta([
+            'toolSettings' => config('nova-editor-js.toolSettings'),
             'uploadImageByFileEndpoint' => route('editor-js-upload-image-by-file'),
             'uploadImageByUrlEndpoint' => route('editor-js-upload-image-by-url'),
             'fetchUrlEndpoint' => route('editor-js-fetch-url'),
@@ -67,7 +63,7 @@ class NovaEditorJs extends Field
      */
     public static function generateHtmlOutput($jsonData): string
     {
-        $config = config('nova-editor-js');
+        $config = config('nova-editor-js.validationSettings');
 
         try {
             // Initialize Editor backend and validate structure
@@ -99,17 +95,23 @@ class NovaEditorJs extends Field
                     case 'linkTool':
                         $htmlOutput .= view('nova-editor-js::link', $block['data'])->render();
                         break;
-                    case 'embed':
-                        $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
+                    case 'checklist':
+                        $htmlOutput .= view('nova-editor-js::checklist', $block['data'])->render();
+                        break;
+                    case 'delimiter':
+                        $htmlOutput .= view('nova-editor-js::delimiter', $block['data'])->render();
                         break;
                     case 'table':
                         $htmlOutput .= view('nova-editor-js::table', $block['data'])->render();
+                        break;
+                    case 'embed':
+                        $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
                         break;
                 }
             }
 
             $htmlOutput .= '</div>';
-            
+
             return html_entity_decode($htmlOutput);
         } catch (EditorJSException $e) {
             // process exception

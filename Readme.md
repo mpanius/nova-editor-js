@@ -19,6 +19,9 @@ Publish the config file
 php artisan vendor:publish --provider="Advoor\NovaEditorJs\FieldServiceProvider"
 ```
 
+## Upgrade
+If upgrading from v0.4.0, re-publish the config file!
+
 ## Usage:
 
 Add this `use` statement to the top of the your nova resource file:
@@ -35,6 +38,9 @@ NovaEditorJs::make('FieldName')
 
 And boom!
 
+You can configure what tools the Editor should use in the config 
+file along with some other settings so make sure to have a look :)
+
 You can use the built in function to generate the response for the frontend:
 
 ```
@@ -50,8 +56,8 @@ Each 'block' has it's own view which can be overwritten in `resources/views/vend
 * https://github.com/editor-js/link
 * https://github.com/editor-js/list
 * https://github.com/editor-js/inline-code
-
-## Todo
-
-* Implement more tools
-* Add configuration options to enable / disable some tools
+* https://github.com/editor-js/checklist
+* https://github.com/editor-js/marker
+* https://github.com/editor-js/embed
+* https://github.com/editor-js/delimiter
+* https://github.com/editor-js/table
