@@ -63,6 +63,10 @@ class NovaEditorJs extends Field
      */
     public static function generateHtmlOutput($jsonData): string
     {
+        if (empty($jsonData)) {
+            return '';
+        }
+
         $config = config('nova-editor-js.validationSettings');
 
         try {
@@ -103,6 +107,9 @@ class NovaEditorJs extends Field
                         break;
                     case 'table':
                         $htmlOutput .= view('nova-editor-js::table', $block['data'])->render();
+                        break;
+                    case 'raw':
+                        $htmlOutput .= view('nova-editor-js::raw', $block['data'])->render();
                         break;
                     case 'embed':
                         $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
